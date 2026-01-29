@@ -32,27 +32,9 @@
       @keyframes fade-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
       .animate-fade-in { animation: fade-in 0.8s ease-out forwards; }
       
-      /* Glitch Effect for Hover */
-      @keyframes glitch {
-        0% { transform: translate(0); }
-        20% { transform: translate(-2px, 2px); }
-        40% { transform: translate(-2px, -2px); }
-        60% { transform: translate(2px, 2px); }
-        80% { transform: translate(2px, -2px); }
-        100% { transform: translate(0); }
-      }
-
-      .hover-glitch:hover {
-        animation: glitch 0.3s cubic-bezier(.25,.46,.45,.94) both infinite;
-        text-shadow: 2px 0 #ccff00, -2px 0 #ff00ff;
-      }
-
-      .headline-one-line {
-        white-space: nowrap;
-        font-size: 4.2vw;
-      }
-      @media (max-width: 640px) {
-        .headline-one-line { font-size: 3.8vw; white-space: normal; }
+      .hero-title {
+        font-size: clamp(2rem, 5vw, 4.5rem);
+        line-height: 1.1;
       }
     </style>
 </head>
@@ -161,18 +143,17 @@
 
                     {/* HERO SECTION */}
                     <header id="home" className="relative h-screen flex flex-col items-center justify-center text-center overflow-hidden bg-sand dark:bg-espresso px-6">
-                        {/* Nautilus Background - Enhanced Visibility */}
-                        <div 
-                          className="absolute inset-0 z-0 opacity-40 dark:opacity-30 bg-no-repeat bg-center mix-blend-multiply dark:mix-blend-lighten grayscale pointer-events-none"
-                          style={{ 
-                              backgroundImage: `url(${nautilusImage})`, 
-                              backgroundSize: 'contain',
-                              backgroundPosition: 'center center'
-                          }}
-                        />
+                        {/* Nautilus Background - Forced Visibility */}
+                        <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none opacity-40 dark:opacity-20 transition-opacity duration-500">
+                            <img 
+                                src={nautilusImage} 
+                                alt="" 
+                                className="w-full h-full object-contain grayscale"
+                            />
+                        </div>
 
-                        <div className="relative z-10 w-full max-w-7xl mx-auto">
-                            <h1 className="headline-one-line font-serif font-black tracking-tighter mb-12 uppercase animate-fade-in block w-full hover-glitch cursor-default transition-all">
+                        <div className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center">
+                            <h1 className="hero-title font-serif font-black tracking-tighter mb-12 uppercase animate-fade-in text-center">
                                 Creative instincts <span className="text-accent italic opacity-80">//</span> STEM brain <span className="text-accent italic opacity-80">//</span> Global firmware
                             </h1>
                             <div className="flex flex-col items-center">
@@ -181,12 +162,9 @@
                                 <p className="font-mono text-xs md:text-sm uppercase tracking-[0.2em] opacity-40">Class of 2027 // v4.0 // Adaptive</p>
                             </div>
                         </div>
-                        
-                        <div className="absolute top-24 left-24 w-32 h-32 border-l border-t border-accent/10 pointer-events-none" />
-                        <div className="absolute bottom-24 right-24 w-32 h-32 border-r border-b border-accent/10 pointer-events-none" />
                     </header>
 
-                    {/* ORIGINS SECTION */}
+                    {/* ORIGINS SECTION - REORDERED: INDIA, BRAZIL, USA, PORTUGAL */}
                     <section id="origins" className="py-24 border-b border-accent/10 px-6 relative z-10 bg-sand dark:bg-espresso">
                         <div className="max-w-7xl mx-auto mb-16 text-center">
                             <h2 className="font-serif text-5xl md:text-7xl mb-4 font-black italic tracking-tight">Global Origins</h2>
@@ -194,10 +172,10 @@
                         </div>
                         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                             {[
+                                { title: 'India', label: 'Legacy', image: 'https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?auto=format&fit=crop&q=80&w=1000', body: 'Heritage is an internal compass.' },
                                 { title: 'Brazil', label: 'Rhythm', image: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&q=80&w=1000', body: 'Brazil taught me about the conversation between light and concrete.' },
                                 { title: 'USA', label: 'Intellect', image: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=1000&auto=format&fit=crop', body: 'The United States is my intellectual training ground.' },
-                                { title: 'Portugal', label: 'Current', image: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?q=80&w=1000&auto=format&fit=crop', body: 'Portugal is the stage for my adulthood.' },
-                                { title: 'India', label: 'Legacy', image: 'https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?auto=format&fit=crop&q=80&w=1000', body: 'Heritage is an internal compass.' }
+                                { title: 'Portugal', label: 'Current', image: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?q=80&w=1000&auto=format&fit=crop', body: 'Portugal is the stage for my adulthood.' }
                             ].map((region) => (
                                 <div key={region.title} onClick={() => setModalContent(region)} className="group cursor-pointer">
                                     <div className="relative aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-xl transition-all duration-500 group-hover:-translate-y-4 group-hover:shadow-2xl">
@@ -254,7 +232,7 @@
                         </div>
                     </section>
 
-                    {/* NOTEBOOK SECTION - "The Unscripted Lab" */}
+                    {/* NOTEBOOK SECTION */}
                     <section id="notebook" className="py-24 px-6 bg-sand/5 dark:bg-white/5">
                         <div className="max-w-4xl mx-auto space-y-24">
                             <div className="text-center mb-16">
@@ -297,15 +275,7 @@
                         </div>
                     </section>
 
-                    {/* FINAL QUOTE */}
-                    <section className="h-[80vh] flex flex-col items-center justify-center text-center px-6">
-                        <blockquote className="font-serif italic text-3xl md:text-5xl lg:text-6xl max-w-5xl leading-tight">
-                            "There is no passion to be found playing small – in settling for a life that is less than the one you are capable of living."
-                        </blockquote>
-                        <p className="mt-8 font-extrabold tracking-widest text-accent text-lg uppercase tracking-[0.3em]">— NELSON MANDELA</p>
-                    </section>
-
-                    {/* FOOTER - Restored Original Name */}
+                    {/* FOOTER */}
                     <footer className="relative bg-accent text-espresso py-24 px-6 md:px-12 overflow-hidden">
                         <div className="absolute bottom-[-10%] left-[-5%] text-[15rem] font-black opacity-[0.03] select-none pointer-events-none">2027</div>
                         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-16 relative z-10">
