@@ -95,6 +95,7 @@
             const [isDark, setIsDark] = useState(false);
             const [isMenuOpen, setIsMenuOpen] = useState(false);
             const [modalContent, setModalContent] = useState(null);
+            const [showCookies, setShowCookies] = useState(true);
 
             useEffect(() => {
                 if (isDark) document.documentElement.classList.add('dark');
@@ -104,7 +105,7 @@
             const toggleTheme = () => setIsDark(!isDark);
             const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-            const nautilusImage = "https://images.unsplash.com/photo-1544322497-293672922619?auto=format&fit=crop&q=80&w=2000";
+            const nautilusImage = "https://images.unsplash.com/photo-1544322497-293672922619?q=80&w=2000&auto=format&fit=crop";
 
             return (
                 <div className="min-h-screen transition-colors duration-500 bg-sand dark:bg-espresso text-espresso dark:text-sand">
@@ -143,18 +144,21 @@
 
                     {/* HERO SECTION */}
                     <header id="home" className="relative h-screen flex flex-col items-center justify-center text-center overflow-hidden bg-sand dark:bg-espresso px-6">
-                        {/* Nautilus Background - Forced Visibility */}
-                        <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none opacity-40 dark:opacity-20 transition-opacity duration-500">
-                            <img 
-                                src={nautilusImage} 
-                                alt="" 
-                                className="w-full h-full object-contain grayscale"
-                            />
-                        </div>
+                        {/* Nautilus Background - Centered CSS implementation */}
+                        <div 
+                            className="absolute inset-0 z-0 opacity-40 dark:opacity-20 pointer-events-none transition-opacity duration-500"
+                            style={{
+                                backgroundImage: `url('${nautilusImage}')`,
+                                backgroundSize: 'contain',
+                                backgroundPosition: 'center',
+                                backgroundRepeat: 'no-repeat',
+                                filter: 'grayscale(100%)'
+                            }}
+                        />
 
                         <div className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center">
                             <h1 className="hero-title font-serif font-black tracking-tighter mb-12 uppercase animate-fade-in text-center">
-                                Creative instincts <span className="text-accent italic opacity-80">//</span> STEM brain <span className="text-accent italic opacity-80">//</span> Global firmware
+                                Quirky instincts <span className="text-accent italic opacity-80">//</span> Precise logic <span className="text-accent italic opacity-80">//</span> Worldly firmware
                             </h1>
                             <div className="flex flex-col items-center">
                                 <div className="h-px w-32 bg-accent/30 mb-8" />
@@ -164,7 +168,7 @@
                         </div>
                     </header>
 
-                    {/* ORIGINS SECTION - REORDERED: INDIA, BRAZIL, USA, PORTUGAL */}
+                    {/* GLOBAL ORIGINS SECTION - INDIA, BRAZIL, USA, PORTUGAL */}
                     <section id="origins" className="py-24 border-b border-accent/10 px-6 relative z-10 bg-sand dark:bg-espresso">
                         <div className="max-w-7xl mx-auto mb-16 text-center">
                             <h2 className="font-serif text-5xl md:text-7xl mb-4 font-black italic tracking-tight">Global Origins</h2>
@@ -191,7 +195,7 @@
                         </div>
                     </section>
 
-                    {/* AUTHOR SECTION */}
+                    {/* BOOK PUBLISHED SECTION */}
                     <section id="author" className="py-24 px-6 md:px-12 relative z-10 bg-sand dark:bg-espresso">
                         <div onClick={() => window.open('https://www.amazon.com/Weight-Cloud-Other-Poems-ebook/dp/B0FXGLB1W7/', '_blank')} className="max-w-6xl mx-auto bg-accent text-espresso rounded-[3rem] p-10 md:p-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center cursor-pointer hover:bg-accent/90 transition-all group">
                             <div>
@@ -232,7 +236,7 @@
                         </div>
                     </section>
 
-                    {/* NOTEBOOK SECTION */}
+                    {/* UNSCRIPTED LAB (NOTEBOOK) SECTION */}
                     <section id="notebook" className="py-24 px-6 bg-sand/5 dark:bg-white/5">
                         <div className="max-w-4xl mx-auto space-y-24">
                             <div className="text-center mb-16">
@@ -293,6 +297,22 @@
                             </div>
                         </div>
                     </footer>
+
+                    {/* COOKIES BANNER */}
+                    {showCookies && (
+                        <div className="fixed bottom-8 right-8 z-[100] bg-espresso text-sand px-6 py-4 rounded-full flex items-center gap-6 shadow-2xl border border-white/10 animate-fade-in">
+                            <div className="flex items-center gap-2">
+                                <span className="text-lg">🛡️</span>
+                                <p className="font-mono text-[10px] tracking-tight uppercase font-bold">Zero cookies. Privacy first.</p>
+                            </div>
+                            <button 
+                                onClick={() => setShowCookies(false)}
+                                className="bg-neon text-espresso px-4 py-1.5 rounded-full font-black text-[10px] uppercase hover:scale-105 transition-transform"
+                            >
+                                Understood
+                            </button>
+                        </div>
+                    )}
 
                     {/* MODAL OVERLAY */}
                     {modalContent && (
